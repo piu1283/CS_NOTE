@@ -101,5 +101,8 @@ fabric.properties
 .idea/misc.xml
 .idea/modules.xml
 leetcode.iml
-src/
+
 target/
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/vcs.xml
