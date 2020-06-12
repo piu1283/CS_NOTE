@@ -1,4 +1,4 @@
-package per.cc.alg;
+package per.cc.tmplate;
 
 /**
  * Created by Chen on 1/15/20.
