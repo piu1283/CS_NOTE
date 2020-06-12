@@ -18,7 +18,7 @@ import java.util.List;
  * (1). To the right of 6 there is 1 smaller element (1). To the right of 1
  * there is 0 smaller element.
  */
-class Solution {
+class CountOfSmallerNumbersAfterSelf {
     public List<Integer> countSmaller(int[] nums) {
         int[] result = new int[nums.length];
 

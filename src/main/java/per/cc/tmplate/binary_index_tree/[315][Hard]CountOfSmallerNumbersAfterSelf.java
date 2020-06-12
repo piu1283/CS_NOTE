@@ -8,27 +8,28 @@ import java.util.stream.Collectors;
 
 /**
  * https://leetcode.com/problems/count-of-smaller-numbers-after-self/
- *
+ * <p>
  * You are given an integer array nums and you have to return a new counts
  * array. The counts array has the property where counts[i] is the number of
  * smaller elements to the right of nums[i].
- *
+ * <p>
  * Example:
- *
+ * <p>
  * Input: [5,2,6,1] Output: [2,1,1,0] Explanation: To the right of 5 there are 2
  * smaller elements (2 and 1). To the right of 2 there is only 1 smaller element
  * (1). To the right of 6 there is 1 smaller element (1). To the right of 1
  * there is 0 smaller element.
  */
 
-class BITree{
-    int [] feq;
-    BITree(int size){
+class BITree {
+    int[] feq;
+
+    BITree(int size) {
         feq = new int[size];
     }
 
-    public void update(int pos, int val){
-        while(pos < feq.length){
+    public void update(int pos, int val) {
+        while (pos < feq.length) {
             feq[pos] += val;
             pos += getLowBit(pos);
         }
@@ -43,27 +44,27 @@ class BITree{
         return sum;
     }
 
-    private int getLowBit(int i){
+    private int getLowBit(int i) {
         return i & (-i);
     }
 }
 
-class Solution {
+class CountOfSmallerNumbersAfterSelf {
     // BIT method time O(nlogn) n is the distinct number
     public List<Integer> countSmaller(int[] nums) {
         // first we need to sort this arr and eliminate the same elements
         TreeSet<Integer> sortedSet = new TreeSet<>();
-        for(int i : nums){
+        for (int i : nums) {
             sortedSet.add(i);
         }
         HashMap<Integer, Integer> rankMap = new HashMap<>();
         int rank = 1;
-        for(int i : sortedSet){
+        for (int i : sortedSet) {
             rankMap.put(i, rank++);
         }
         BITree tree = new BITree(nums.length + 1);
-        int [] res = new int[nums.length];
-        for(int i = nums.length - 1; i >= 0; i--){
+        int[] res = new int[nums.length];
+        for (int i = nums.length - 1; i >= 0; i--) {
             tree.update(rankMap.get(nums[i]), 1);
             res[i] = tree.query(rankMap.get(nums[i]) - 1);
         }
