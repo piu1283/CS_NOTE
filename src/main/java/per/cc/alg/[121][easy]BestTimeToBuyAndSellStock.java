@@ -21,34 +21,27 @@ package per.cc.alg;
  * Output: 0
  * Explanation: In this case, no transaction is done, i.e. max profit = 0.
  */
-public class BestTimeToBuyAndSellStock_121_easy {
-    public static int solution(int [] times){
-        if (times.length == 0) {
+class Solution {
+    public int maxProfit(int[] prices) {
+        if (prices.length == 0) {
             return 0;
         }
-        int [] dp = new int[times.length];
-        dp[0] = times[0];
-        for (int i = 1; i < times.length; i++) {
-            if(times[i] >= dp[i-1]) {
+        int [] dp = new int[prices.length];
+        dp[0] = prices[0];
+        for (int i = 1; i < prices.length; i++) {
+            if(prices[i] >= dp[i-1]) {
                 dp[i] = dp[i - 1];
             }else{
-                dp[i] = times[i];
+                dp[i] = prices[i];
             }
         }
         int maxProfit = 0;
-        for (int i = 1; i < times.length; i++) {
-            int profit = times[i] - dp[i];
+        for (int i = 1; i < prices.length; i++) {
+            int profit = prices[i] - dp[i];
             if(maxProfit < profit){
                 maxProfit = profit;
             }
         }
         return maxProfit;
-    }
-
-    public static void main(String[] args) {
-        assert 5 == solution(new int[]{7, 1, 5, 3, 6, 4}) : "wrong answer";
-        assert 0 == solution(new int[]{7,6,4,3,1}) : "wrong answer";
-        assert 0 == solution(new int[]{7}) : "wrong answer";
-        assert 0 == solution(new int[0]) : "wrong answer";
     }
 }
