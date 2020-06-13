@@ -1,4 +1,4 @@
-package per.cc.tmplate.merge_sort;
+package per.cc.tmplate.merge_sort_or_dc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
