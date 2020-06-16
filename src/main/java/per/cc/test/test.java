@@ -25,5 +25,6 @@ public class test {
         Date d = cal.getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         System.out.println(df.format(d));
+        PriorityQueue<Map.Entry<Integer, Integer>> que = new PriorityQueue<>(Comparator.comparingInt(Map.Entry::getValue));
     }
 }
