@@ -1,5 +1,7 @@
 package per.cc.algo.minimize_greatest_subarray_sum;
 
+import java.util.TreeSet;
+
 /**
  * https://leetcode.com/problems/split-array-largest-sum/
  *
@@ -36,6 +38,8 @@ class SplitArrayLargestSum {
                 l = nums[i];
             }
         }
+        TreeSet<Integer> tree = new TreeSet<>();
+        Integer ceiling = tree.ceiling(1);
         long ans = r;
         while(l <= r){
             long mid = l + (r - l) / 2;
