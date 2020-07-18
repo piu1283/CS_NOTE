@@ -1,6 +1,7 @@
 package per.cc.algo.string.slicing_window;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 /**
  * Given a string s , find the length of the longest substring t  that contains at most 2 distinct characters.

@@ -50,3 +50,56 @@ class PalindromePartitioning {
         return true;
     }
 }
+
+/**
+ * https://leetcode.com/problems/palindrome-partitioning-ii/
+ * Given a string s, partition s such that every substring of the partition is a palindrome.
+ *
+ * Return the minimum cuts needed for a palindrome partitioning of s.
+ *
+ * Example:
+ *
+ * Input: "aab"
+ * Output: 1
+ * Explanation: The palindrome partitioning ["aa","b"] could be produced using 1 cut.
+ */
+
+class PalindromePartitioningII {
+    // dp[i]: the min cut number from [0...i]
+    // isPal[i][j]: whether the [i...j] is palindrome
+    // dp[i] = min(dp[0..j] + [j + 1, i]) {j <= i}
+    // for the [j + 1, i], if it is palindrome, return 1, else return i - j
+    public int minCut(String s) {
+        // edge cases
+        if(s.equals("")){
+            return 0;
+        }
+        int [] dp = new int [s.length()];
+        boolean [][] isPal = new boolean[s.length()][s.length()];
+        // aaba ac
+        // ij
+        // dp[j] + i - j[if [i..j] is not pal]
+        for(int i = 0; i < s.length(); i++){
+            isPal[i][i] = true;
+        }
+        for(int i = 0; i < s.length(); i++){
+            int min = Integer.MAX_VALUE;
+            for(int j = 0; j < i; j++){
+                if(s.charAt(i) == s.charAt(j)){
+                    if(i - 1 < j + 1){
+                        isPal[j][i] = true;
+                    }else{
+                        isPal[j][i] = isPal[j + 1][i - 1];
+                    }
+                }
+                if (isPal[j][i]) {
+                    if(j == 0) min = 0;
+                    else min = Math.min(min, dp[j - 1] + 1);
+                }
+                min = Math.min(min, dp[j] + i - j);
+            }
+            dp[i] = min == Integer.MAX_VALUE ? 0 : min;
+        }
+        return dp[s.length() - 1];
+    }
+}
