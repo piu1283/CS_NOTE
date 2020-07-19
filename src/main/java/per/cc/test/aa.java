@@ -16,6 +16,5 @@ public class aa {
         sb.append("is").append(String.valueOf(bc, 0, 2));
         System.out.println(sb.toString());
         Stack<Character> stack = new Stack<>();
-
     }
 }
