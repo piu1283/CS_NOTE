@@ -1,0 +1,2 @@
+- https://www.youtube.com/watch?v=xR4sGgwtR2I&t=379s
+- [Eulerian Path/Circuit algorithm (Hierholzer's algorithm) | Graph Theory](https://www.youtube.com/watch?v=8MpoO2zA2l4)

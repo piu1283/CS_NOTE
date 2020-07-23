@@ -1,4 +1,4 @@
-package per.cc.algo.brain_teaser;
+package per.cc.algo.brain_teaser.permutation;
 
 import java.util.Arrays;
 

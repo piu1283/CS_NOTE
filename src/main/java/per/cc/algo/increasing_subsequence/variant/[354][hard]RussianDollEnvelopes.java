@@ -1,4 +1,4 @@
-package per.cc.algo.longest_increasing_subsequence.variant;
+package per.cc.algo.increasing_subsequence.variant;
 
 import java.util.Arrays;
 
