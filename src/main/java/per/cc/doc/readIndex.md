@@ -1,0 +1,1 @@
+[readIndex of etcd](https://zhuanlan.zhihu.com/p/31050303)

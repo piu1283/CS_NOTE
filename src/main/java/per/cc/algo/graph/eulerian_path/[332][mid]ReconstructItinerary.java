@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * https://www.youtube.com/watch?v=RYaakWv5m6o
+ *
  * Given a list of airline tickets represented by pairs of departure and arrival airports [from, to], reconstruct the
  * itinerary in order. All of the tickets belong to a man who departs from JFK. Thus, the itinerary must begin with JFK.
  * <p>
