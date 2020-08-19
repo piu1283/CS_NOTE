@@ -1,8 +1,6 @@
 package per.cc.algo.graph.tarjan;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * There are n servers numbered from 0 to n-1 connected by undirected server-to-server connections forming a network
@@ -33,7 +31,7 @@ import java.util.List;
  */
 class CriticalConnectionsInANetwork {
     List<List<Integer>> ans = new ArrayList<>();
-    List<Integer>[] adj;
+    Map<Integer,List<Integer>> map = new HashMap<>();
 
     int curdepth=0;
 
@@ -42,17 +40,27 @@ class CriticalConnectionsInANetwork {
 
     public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
         // build graph
-        adj = new ArrayList[n];
         low = new int[n];
         label = new int[n];
 
-        for(int i=0; i<n; i++)adj[i] = new ArrayList<>();
 
         for(List<Integer> con: connections){
             int i = con.get(0);
             int j = con.get(1);
-            adj[i].add(j);
-            adj[j].add(i);
+            if(map.containsKey(i)){
+                map.get(i).add(j);
+            }else{
+                ArrayList<Integer> l = new ArrayList<>();
+                l.add(j);
+                map.put(i, l);
+            }
+            if(map.containsKey(j)){
+                map.get(j).add(i);
+            }else{
+                ArrayList<Integer> l = new ArrayList<>();
+                l.add(i);
+                map.put(j, l);
+            }
         }
 
         boolean [] visited = new boolean[n];
@@ -62,12 +70,12 @@ class CriticalConnectionsInANetwork {
     }
 
     private void dfs(boolean[] visited, int curNode, int parentNode){
+        low[curNode] = curdepth;   // assign low for curNode
         visited[curNode] = true;
         label[curNode] = curdepth; // assign label for curNode
-        low[curNode] = curdepth;   // assign low for curNode
         curdepth++;
 
-        for(int toNode: adj[curNode]){
+        for(int toNode: map.get(curNode)){
             if(toNode == parentNode) continue;
 
             if(!visited[toNode]){
@@ -78,7 +86,7 @@ class CriticalConnectionsInANetwork {
                 if(label[curNode] < low[toNode]){
                     ans.add(Arrays.asList(curNode, toNode));
                 }
-            }else {
+            }else { 
                 // cycle found - carry over the low
                 // also not critical path
                 int newlow = Math.min(low[curNode], low[toNode]);
