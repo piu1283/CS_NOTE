@@ -1,4 +1,4 @@
-package per.cc.algo.merge_sort_or_divide_conquer;
+package per.cc.algo.divide_conquer;
 
 import java.util.ArrayList;
 import java.util.Arrays;

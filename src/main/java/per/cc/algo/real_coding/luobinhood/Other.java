@@ -1,15 +1,39 @@
 package per.cc.algo.real_coding.luobinhood;
 
-import com.sun.xml.internal.xsom.impl.scd.Iterators;
-import per.cc.princeton.tmplate.FarthestPair;
-import sun.security.util.Length;
-
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Other {
     public static void main(String[] args) {
-        System.out.println(restoreArray(new int[][]{{4, 2}, {1, 2}, {5, 3}, {5, 1}}));
+        System.out.println(aaaa(10, new String[]{"L","L","C0","L","C3"}));
+        System.out.println(aaaa(10, new String[]{"L","L","L","L","L","L","L","L","L","L","L","C0"}));
+    }
+
+    private static String aaaa(int n, String [] operations){
+        int leftMost = 0;
+        char [] arr = new char[n];
+        for(int i = 0; i < n; i++){
+            arr[i] = '0';
+        }
+        for (String s : operations) {
+            if(s.equals("L")){
+                if(arr[leftMost] != '0') continue;
+                arr[leftMost] = '1';
+                while (leftMost < arr.length && arr[leftMost] == '1') {
+                    leftMost++;
+                }
+                if(leftMost == arr.length){
+                    leftMost--;
+                }
+            }else{
+                String idxStr = s.substring(1);
+                int idx = Integer.parseInt(idxStr);
+                if(idx < leftMost){
+                    leftMost = idx;
+                }
+                arr[idx] = '0';
+            }
+        }
+        return String.valueOf(arr);
     }
 
     /**
@@ -67,6 +91,12 @@ public class Other {
                 col--;
             }
         }
+        PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o2[0] - o1[0];
+            }
+        });
         return matrix;
     }
 
