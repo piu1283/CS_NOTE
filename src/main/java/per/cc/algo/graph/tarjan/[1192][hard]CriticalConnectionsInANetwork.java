@@ -86,7 +86,7 @@ class CriticalConnectionsInANetwork {
                 if(label[curNode] < low[toNode]){
                     ans.add(Arrays.asList(curNode, toNode));
                 }
-            }else { 
+            }else {
                 // cycle found - carry over the low
                 // also not critical path
                 int newlow = Math.min(low[curNode], low[toNode]);
