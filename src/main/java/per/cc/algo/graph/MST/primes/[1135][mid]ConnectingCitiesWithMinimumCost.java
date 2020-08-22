@@ -43,9 +43,7 @@ import java.util.*;
  */
 class ConnectingCitiesWithMinimumCost {
     public int minimumCost(int N, int[][] connections) {
-        PriorityQueue<int[]> pq = new PriorityQueue<>((a,b)->{
-            return a[1] - b[1];
-        });
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
         Map<Integer, List<int[]>> graph = new HashMap<>();
         for(int i = 1; i <= N; i++){
             graph.put(i, new ArrayList<>());
