@@ -7,8 +7,13 @@ import java.util.*;
  */
 public class TurnStile {
     public static void main(String[] args) {
-        int[] calc = calc(5, new int[]{0, 1, 1, 3,3}, new int[]{0, 1, 0, 0, 1});
-        System.out.println(calc);
+//        int[] calc = calc(5, new int[]{0, 1, 1, 3,3}, new int[]{0, 1, 0, 0, 1});
+//        System.out.println(calc);
+        ArrayDeque<Integer> que = new ArrayDeque<>();
+        Random r = new Random();
+        for(int i = 0; i < 10; i++){
+            System.out.println(r.nextInt(100));
+        }
 
     }
 
