@@ -37,6 +37,7 @@ public class test {
     }
 
     public static int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+        TreeMap<Integer,Integer> map = new TreeMap<>((a,b)-> b - a);
         //edge cases
         if (n == 1) {
             return 0;
