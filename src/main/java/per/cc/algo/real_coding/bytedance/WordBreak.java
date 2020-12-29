@@ -7,7 +7,7 @@ import java.util.Set;
 
 /**
  * https://leetcode.com/problems/word-break/
- *
+ * <p>
  * Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be
  * segmented into a space-separated sequence of one or more dictionary words.
  * <p>
@@ -33,14 +33,14 @@ import java.util.Set;
  */
 public class WordBreak {
     public boolean wordBreak(String s, List<String> wordDict) {
-        boolean [] dp = new boolean[s.length()];
+        boolean[] dp = new boolean[s.length()];
         Set<String> dict = new HashSet<>(wordDict);
         List<Integer> trueNode = new ArrayList<>();
         trueNode.add(-1);
-        for(int i = 0; i < s.length(); i++){
-            for(int st : trueNode){
+        for (int i = 0; i < s.length(); i++) {
+            for (int st : trueNode) {
                 String tmp = s.substring(st + 1, i + 1);
-                if(wordDict.contains(tmp)){
+                if (wordDict.contains(tmp)) {
                     dp[i] = true;
                     trueNode.add(i);
                     break;

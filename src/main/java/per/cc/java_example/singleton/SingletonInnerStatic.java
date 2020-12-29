@@ -9,7 +9,7 @@ public class SingletonInnerStatic {
         private static final SingletonInnerStatic ins = new SingletonInnerStatic();
     }
 
-    public SingletonInnerStatic getInstance() {
+    public static SingletonInnerStatic getInstance() {
         return Instance.ins;
     }
 }

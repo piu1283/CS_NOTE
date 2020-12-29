@@ -1,89 +1,84 @@
 package per.cc.test;
 
-class Solution {
+import java.util.*;
+
+class RandomizedCollection {
     public static void main(String[] args) {
-        Solution s = new Solution();
-        int res = s.findLatestStep(new int[]{3,5,1,2,4}, 1);
-        System.out.println(res);
+        RandomizedCollection rd = new RandomizedCollection();
+        rd.insert(0);
+        rd.insert(1);
+        rd.remove(0);
+        rd.insert(2);
+        rd.remove(1);
+        rd.getRandom();
     }
-    public int findLatestStep(int[] arr, int m) {
-        UF uf = new UF(arr.length);
-        boolean[] visit = new boolean[arr.length];
-        int ans = 0;
-        int count = 0;
-        for(int i = 0; i < arr.length; i++){
-            int idx = arr[i] - 1;
-            int left = idx - 1;
-            if(left >= 0 && visit[left]){
-                if(uf.getSize(left) == m) count--;
-                uf.union(idx, left);
-            }
-            int right = idx + 1;
-            if(right < arr.length && visit[right]){
-                if(uf.getSize(right) == m) count--;
-                uf.union(idx, right);
-            }
-            visit[idx] = true;
-            if(uf.getSize(idx) == m){
-                count++;
-            }
-            if(count > 0) ans = i + 1;
+
+    Map<Integer, List<Integer>> map;
+    List<Integer> list;
+    Random r;
+
+    /** Initialize your data structure here. */
+    public RandomizedCollection() {
+        r = new Random();
+        map = new HashMap<>();
+        list = new ArrayList<>();
+    }
+
+    /** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */
+    public boolean insert(int val) {
+        list.add(val);
+        int id = list.size() - 1;
+        if(map.containsKey(val)){
+            map.get(val).add(id);
+            return false;
+        }else{
+            List<Integer> l = new ArrayList<>();
+            l.add(id);
+            map.put(val,l);
+            return true;
         }
-        if(ans > 0) return ans;
-        return -1;
+    }
+
+    /** Removes a value from the collection. Returns true if the collection contained the specified element. */
+    public boolean remove(int val) {
+        if(list.isEmpty()) return false;
+        int lastId = list.size() - 1;
+        int lastVal = list.get(lastId);
+        List<Integer> idList = map.get(lastVal);
+        if(map.containsKey(val)){
+            int removeId = map.get(val).get(map.get(val).size() - 1);
+            map.get(val).remove(map.get(val).size() - 1);
+            // swap
+            int tmp = list.get(lastId);
+            list.set(lastId,list.get(removeId));
+            list.set(removeId, tmp);
+            for(int i = idList.size() - 1; i>=0; i--){
+                if(idList.get(i) == lastId){
+                    idList.set(i, removeId);
+                    break;
+                }
+            }
+            list.remove(lastId);
+            if(map.get(val).isEmpty()){
+                map.remove(val);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /** Get a random element from the collection. */
+    public int getRandom() {
+        System.out.println(list.size());
+        int rNum = r.nextInt(list.size());
+        return list.get(rNum);
     }
 }
 
-class UF {
-    private int[] parent;   // parent[i] = parent of i
-    private int[] size;     // size[i] = number of sites in subtree rooted at i
-    private int count;      // number of components
-
-    public UF(int n) {
-        count = n;
-        parent = new int[n];
-        size = new int[n];
-        for (int i = 0; i < n; i++) {
-            parent[i] = i;
-            size[i] = 1;
-        }
-    }
-
-    public int getSize(int i){
-        int root = find(i);
-        return size[root];
-    }
-
-    public int count() {
-        return count;
-    }
-
-    public int find(int p) {
-
-        while (p != parent[p])
-            p = parent[p];
-        return p;
-    }
-
-    public boolean connected(int p, int q) {
-        return find(p) == find(q);
-    }
-
-    public void union(int p, int q) {
-        int rootP = find(p);
-        int rootQ = find(q);
-        if (rootP == rootQ) return;
-
-        // make smaller root point to larger one
-        if (size[rootP] < size[rootQ]) {
-            parent[rootP] = rootQ;
-            size[rootQ] += size[rootP];
-        }
-        else {
-            parent[rootQ] = rootP;
-            size[rootP] += size[rootQ];
-        }
-        count--;
-    }
-
-}
+/**
+ * Your RandomizedCollection object will be instantiated and called as such:
+ * RandomizedCollection obj = new RandomizedCollection();
+ * boolean param_1 = obj.insert(val);
+ * boolean param_2 = obj.remove(val);
+ * int param_3 = obj.getRandom();
+ */
